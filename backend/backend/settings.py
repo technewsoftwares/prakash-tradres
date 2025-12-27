@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-wrixg0)#!-cky4s73@qf(eamflu*)!4g6sug4!)z_ud5z4*y0w
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'accounts',
+    'rest_framework_simplejwt',
+
 ]
 
 MIDDLEWARE = [
@@ -107,8 +109,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
     ),
 }
 
@@ -126,3 +131,15 @@ EMAIL_HOST_USER = "harishrajs0808@gmail.com"
 EMAIL_HOST_PASSWORD = "zqiv hujo mkkd xhgk"
 
 DEFAULT_FROM_EMAIL = "Prakash Traders <harishrajs0808@gmail.com>"
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+]
+
+CORS_ALLOW_CREDENTIALS = True
