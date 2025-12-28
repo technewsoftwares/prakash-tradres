@@ -1,16 +1,62 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const UserAddress = () => {
   const navigate = useNavigate();
-
-  // Start empty — show only after adding address
   const [addresses, setAddresses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleDelete = (id) => {
+  const token = localStorage.getItem("access_token");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    axios
+      .get("http://127.0.0.1:8000/api/auth/addresses/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAddresses(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+        alert("Failed to load addresses");
+      });
+  }, [token, navigate]);
+
+  const handleDelete = async (id) => {
     if (!window.confirm("Delete this address?")) return;
-    setAddresses((prev) => prev.filter((addr) => addr.id !== id));
+
+    try {
+      await axios.delete(
+        `http://127.0.0.1:8000/api/auth/addresses/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setAddresses((prev) => prev.filter((a) => a.id !== id));
+    } catch {
+      alert("Delete failed");
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        Loading addresses...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white px-6 py-10">
@@ -28,33 +74,22 @@ const UserAddress = () => {
         </button>
       </div>
 
-      {/* Empty state */}
       {addresses.length === 0 && (
-        <p className="text-gray-400">
-          No addresses added yet.
-        </p>
+        <p className="text-gray-400">No addresses added yet.</p>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {addresses.map((addr) => (
-          <div
-            key={addr.id}
-            className="border border-gray-700 rounded-lg p-6"
-          >
+          <div key={addr.id} className="border border-gray-700 rounded-lg p-6">
             <h2 className="text-emerald-400 font-semibold mb-2">
-              {addr.name}
+              {addr.full_name}
             </h2>
 
-            <p className="text-sm mb-2">{addr.phone}</p>
-            <p className="text-sm text-gray-300 mb-4">
-              {addr.address}
-            </p>
+            <p className="text-sm mb-2">{addr.mobile}</p>
+            <p className="text-sm text-gray-300 mb-4">{addr.address}</p>
 
             <div className="flex justify-between items-center text-sm">
-              <span>
-                Address Type:{" "}
-                <span className="capitalize">{addr.type}</span>
-              </span>
+              <span className="capitalize">{addr.address_type}</span>
               <button
                 onClick={() => handleDelete(addr.id)}
                 className="border px-4 py-2 rounded hover:bg-red-600"

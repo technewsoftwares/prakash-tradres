@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Profile = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
 
   const [form, setForm] = useState({
     title: "",

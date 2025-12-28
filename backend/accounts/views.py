@@ -9,6 +9,29 @@ from django.conf import settings
 from .models import OTP, UserProfile
 from .serializers import UserProfileSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from .models import UserAddress
+from .serializers import UserAddressSerializer
+
+class UserAddressView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        addresses = UserAddress.objects.filter(user=request.user)
+        serializer = UserAddressSerializer(addresses, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = UserAddressSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response({"success": True})
+        return Response(serializer.errors, status=400)
+
+    def delete(self, request, pk):
+        address = UserAddress.objects.get(id=pk, user=request.user)
+        address.delete()
+        return Response({"success": True})
 
 class UserProfileView(APIView):
     authentication_classes = [JWTAuthentication]

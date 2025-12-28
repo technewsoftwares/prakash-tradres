@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class OTP(models.Model):
     email = models.EmailField()
     otp = models.CharField(max_length=6)
@@ -27,3 +26,27 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+class UserAddress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+
+    full_name = models.CharField(max_length=100)
+    mobile = models.CharField(max_length=15)
+    pincode = models.CharField(max_length=10)
+
+    address = models.TextField()
+    landmark = models.CharField(max_length=100, blank=True)
+    locality = models.CharField(max_length=100)
+
+    state = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+
+    address_type = models.CharField(
+        max_length=10,
+        choices=[("home", "Home"), ("work", "Work"), ("other", "Other")]
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.full_name} - {self.city}"
