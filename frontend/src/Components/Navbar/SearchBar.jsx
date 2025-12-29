@@ -4,19 +4,16 @@ import ProductCard from "../ProductCard";
 
 /* DEMO CATEGORIES */
 const categories = [
-  {
-    name: "ELECTRONICS",
-    sub: ["Mobiles", "Laptops", "Headphones", "Cameras"]
-  },
-  {
-    name: "FURNITURE",
-    sub: ["Men", "Women", "Kids", "Footwear"]
-  },
-  {
-    name: "HOME APPLIANCES",
-    sub: ["Refrigerators", "Washing Machines", "Microwaves"]
-  }
-];
+    {
+      name: "Home Appliances",
+      sub: ["Refrigerators", "Washing Machines", "Microwaves"],
+    },
+
+    {
+        name: "Kitchen Appliances",
+        sub: ["Mixers", "Grinders", "Power Hobs", "Chimneys", "Tower Fans", "E-Rice Cookers", "E-Kettles"],
+    },
+  ];
 
 const SearchBar = ({
   autoFocus = false,

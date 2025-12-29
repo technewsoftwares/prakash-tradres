@@ -20,7 +20,7 @@ import SearchBar from "./SearchBar";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); 
   const { isAuth, setIsAuth, token, setToken } = useContext(ContextProvider);
-
+ 
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [query, setQuery] = useState("");
@@ -33,43 +33,38 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const Links = [
-    { name: "Exclusive At Croma", link: "/" },
     { name: "Top Brands", link: "/" },
-    { name: "Croma Store Locator", link: "/" },
-    { name: "Gift Card", link: "/" },
+    { name: "Our Store Locator", link: "/" },
   ];
 
   const categories = [
     {
-      name: "Televisions & Accessories",
-      sub: ["LED TVs", "QLED TVs", "OLED TVs", "Smart TVs"],
-    },
-    {
       name: "Home Appliances",
       sub: ["Refrigerators", "Washing Machines", "Microwaves"],
     },
-    {
-      name: "Phones & Wearables",
-      sub: ["Mobiles", "Smartwatches", "Tablets"],
-    },
-    {
-      name: "Computers & Tablets",
-      sub: ["Laptops", "Desktops", "Monitors"],
-    },
+
     {
         name: "Kitchen Appliances",
-        sub: ["Mixers", "Air Fryers", "Water Purifiers"],
+        sub: ["Mixers", "Grinders", "Power Hobs", "Chimneys", "Tower Fans", "E-Rice Cookers", "E-Kettles"],
     },
   ];
 
   const categoryRoutes = {
-    Mobiles: "/category/mobile",
-    Laptops: "/category/laptops",
-  };
+      Refrigerators: "/products/refrigerators",
+      "Washing Machines": "/products/washing-machines",
+      Microwaves: "/products/microwaves",
+      Mixers: "/products/mixers",
+      Grinders: "/products/grinders",
+      "Power Hobs": "/products/power-hobs",
+      Chimneys: "/products/chimneys",
+      "Tower Fans": "/products/tower-fans",
+      "E-Rice Cookers": "/products/e-rice-cookers",
+      "E-Kettles": "/products/e-kettles",
+};
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`${SERVER_URL}/product?q=${query}`);
+      const res = await axios.get(`http://127.0.0.1:8000/api/product?q=${query}`);
       setData(res.data.product);
     } catch (err) {
       console.log(err);
@@ -90,7 +85,7 @@ const Navbar = () => {
   const handleLogout = () => {
     setIsAuth(false);
     setShowPopup(false);
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
     setToken(null);
   };
 
@@ -98,10 +93,8 @@ const Navbar = () => {
     { icon: <FaRegUserCircle className="w-5 h-5" />, name: "My Profile", link: "/profile" },
     { icon: <FaRegAddressBook className="w-5 h-5" />, name: "My Address", link: "/address" },
     { icon: <LuCodesandbox className="w-5 h-5" />, name: "My Orders", link: "/" },
-    { icon: <PiMedalLight className="w-5 h-5" />, name: "My Rewards", link: "/" },
     { icon: <FaRegHeart className="w-5 h-5" />, name: "My Wishlist", link: "/" },
-    { icon: <MdOutlineDevices className="w-5 h-5" />, name: "My Device & Plan", link: "/" },
-    { icon: <RiCustomerService2Line className="w-5 h-5" />, name: "My Services Request", link: "/" },
+    { icon: <RiCustomerService2Line className="w-5 h-5" />, name: "Support Center", link: "/" },
   ];
 
   return (
