@@ -72,15 +72,15 @@ const Footer = () => {
           <div>
             <h5 className="text-sm font-semibold mb-3">PRODUCTS</h5>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li>Televisions</li>
-              <li>Home Appliances</li>
-              <li>Phones & Wearables</li>
-              <li>Computers & Tablets</li>
-              <li>Kitchen Appliances</li>
-              <li>Audio & Video</li>
-              <li>Health & Fitness</li>
-              <li>Gaming</li>
-              <li>Accessories</li>
+              <li>Refrigerators</li>
+              <li>Washing Machines</li>
+              <li>Microwaves</li>
+              <li>Mixers</li>
+              <li>Grinders</li>
+              <li>Power Hobs</li>
+              <li>Chimneys</li>
+              <li>Electric Rice Cookers</li>
+              <li>Electric Kettles</li>
             </ul>
           </div>
 

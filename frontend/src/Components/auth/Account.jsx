@@ -44,7 +44,7 @@ const Account = ({ onClose }) => {
         );
 
         if (response.data.success) {
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("access_token", response.data.token);
           setToken(response.data.token);
           setIsAuth(true);
           onClose(); // close modal after login
