@@ -11,7 +11,7 @@ import AddAddress from "../Components/auth/AddAddress";
 import Login from "../Components/auth/Login";
 
 import Cart from "../Components/Cart";
-import Mobile from "../Components/Product/refrigerators";
+import Mobile from "../Components/Product/Mobile";
 import AdminDashboard from "../Components/AdminDashboard";
 
 const AllRoutes = () => {
