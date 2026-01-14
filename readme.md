@@ -88,4 +88,4 @@ git pull origin main
 
 ## 👤 Author
 
-**Harish Raj**
+**Tech New Softwares Team**
