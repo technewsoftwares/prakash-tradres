@@ -1,0 +1,18 @@
+# Python virtual environment
+env/
+
+
+# Python
+__pycache__/
+*.pyc
+
+
+
+# Node
+node_modules/
+
+# Environment
+.env
+
+# OS
+.DS_Store
